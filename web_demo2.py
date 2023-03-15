@@ -45,6 +45,8 @@ prompt_text = st.text_area(label="用户输入",
             height = 200,
             placeholder="请在这儿输入您的命令")
 
+if 'state' not in st.session_state:
+    st.session_state['state'] = None
 
 if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
@@ -54,4 +56,4 @@ if st.button("发送", key="predict"):
 
     st.balloons()
 
-st.session_state
+#st.session_state
