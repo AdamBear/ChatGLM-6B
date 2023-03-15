@@ -51,7 +51,7 @@ prompt_text = st.text_area(label="用户输入",
             value="作为抖音本地生活服务的短视频运营专家，我每次会给你键入命令，命令是负责输入商品类型，当你收到我输入商品类型时，你负责帮我每次写出10个吸引人的短视频标题，每个标题限制在40字内，当我键入“继续”时你需要再写出10个")
 
 if 'state' not in st.session_state:
-    st.session_state['state'] = None
+    st.session_state['state'] = []
 
 if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
