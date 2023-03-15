@@ -41,7 +41,7 @@ def predict(input, history=None):
     if len(updates) < MAX_BOXES:
         updates = updates + [""] * (MAX_BOXES - len(updates))
 
-    return updates
+    return history
 
 
 # create a prompt text for the text generation
@@ -57,7 +57,7 @@ if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
         # text generation
         st.session_state["state"] = predict(prompt_text, st.session_state["state"])
-        st.success("已成功给出回答")
+        #st.success("已成功给出回答")
 
     st.balloons()
 
