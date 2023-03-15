@@ -25,7 +25,7 @@ def predict(input, history=None):
         history = []
     response, history = model.chat(tokenizer, input, history)
 
-    message(input, is_user=True)
+    message(input)
     message(response)
 
     updates = []
