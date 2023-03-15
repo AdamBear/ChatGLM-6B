@@ -47,11 +47,12 @@ prompt_text = st.text_area(label="用户输入",
             placeholder="请在这儿输入您的命令")
 
 
-state = None
 if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
         # text generation
-        state = predict(prompt_text, state)
+        st.session_state["state"] = predict(prompt_text, st.session_state["state"])
         st.success("已成功给出回答")
 
     st.balloons()
+
+st.session_state
