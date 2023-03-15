@@ -15,6 +15,7 @@ def predict(input, history=None):
     if history is None:
         history = []
     response, history = model.chat(tokenizer, input, history)
+    print(response)
     updates = []
     for query, response in history:
         updates.append(gr.update(visible=True, value="用户：" + query))
