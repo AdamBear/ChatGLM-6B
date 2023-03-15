@@ -31,15 +31,15 @@ def predict(input, history=None):
         history = []
     response, history = model.chat(tokenizer, input, history)
 
-    updates = []
-    for query, response in history:
-        updates.append("用户：" + query)
-        message(input, avatar_style="avataaars")
-        updates.append("ChatGLM-6B：" + response)
-        message(response, avatar_style="big-smile")
+    #updates = []
+    for i, (query, response) in enumerate(history):
+        #updates.append("用户：" + query)
+        message(input, avatar_style="avataaars", key=str(i) + "_user")
+        #updates.append("ChatGLM-6B：" + response)
+        message(response, avatar_style="big-smile", key=str(i))
 
-    if len(updates) < MAX_BOXES:
-        updates = updates + [""] * (MAX_BOXES - len(updates))
+    # if len(updates) < MAX_BOXES:
+    #     updates = updates + [""] * (MAX_BOXES - len(updates))
 
     return history
 
