@@ -3,7 +3,7 @@ import gradio as gr
 
 tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
 #model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
-model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).cuda()
+model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
 model = model.eval()
 
 MAX_TURNS = 20
