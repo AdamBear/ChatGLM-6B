@@ -27,7 +27,7 @@ def predict(input, history=None):
         history = []
     response, history = model.chat(tokenizer, input, history)
 
-    message(input)
+    message(input, avatar_style="avataaars")
     message(response, avatar_style="big-smile")
 
     updates = []
