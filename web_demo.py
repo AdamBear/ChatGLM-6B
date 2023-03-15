@@ -2,8 +2,7 @@ from transformers import AutoModel, AutoTokenizer
 import gradio as gr
 
 tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
-#model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
-model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).cuda()
+model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
 #model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().quantize(4).cuda()
 model = model.eval()
 
