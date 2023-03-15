@@ -2,7 +2,8 @@ from transformers import AutoModel, AutoTokenizer
 import gradio as gr
 
 tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
-model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
+#model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
+model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).cuda()
 model = model.eval()
 
 MAX_TURNS = 20
@@ -10,6 +11,7 @@ MAX_BOXES = MAX_TURNS * 2
 
 
 def predict(input, history=None):
+    print(input)
     if history is None:
         history = []
     response, history = model.chat(tokenizer, input, history)
