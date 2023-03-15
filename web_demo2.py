@@ -7,7 +7,7 @@ from streamlit_chat import message
 # model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().quantize(4).cuda()
 
 
-@st.cache_resource (suppress_st_warning=True)
+@st.cache_resource
 def get_model():
     tokenizer = AutoTokenizer.from_pretrained("d:/apps/nlp/models/chatglm-6b", trust_remote_code=True)
     model = AutoModel.from_pretrained("d:/apps/nlp/models/chatglm-6b", trust_remote_code=True).half().cuda()
