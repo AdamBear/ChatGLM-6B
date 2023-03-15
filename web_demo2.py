@@ -35,9 +35,9 @@ def predict(input, history=None):
     #updates = []
     for i, (query, response) in enumerate(history):
         #updates.append("用户：" + query)
-        message(query, avatar_style="avataaars", key=str(i) + "_user")
+        message(query, avatar_style="big-smile", key=str(i) + "_user")
         #updates.append("ChatGLM-6B：" + response)
-        message(response, avatar_style="big-smile", key=str(i))
+        message(response, avatar_style="bottts", key=str(i))
 
     # if len(updates) < MAX_BOXES:
     #     updates = updates + [""] * (MAX_BOXES - len(updates))
@@ -46,7 +46,7 @@ def predict(input, history=None):
 
 
 # create a prompt text for the text generation
-prompt_text = st.text_area(label="用户输入",
+prompt_text = st.text_area(label="用户命令输入",
             height = 100,
             placeholder="请在这儿输入您的命令")
 
