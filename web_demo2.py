@@ -6,6 +6,10 @@ from streamlit_chat import message
 # #model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
 # model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().quantize(4).cuda()
 
+st.set_page_config(
+    page_title="ChatGLM-6b 演示",
+    page_icon=":robot:"
+)
 
 @st.cache_resource
 def get_model():
@@ -56,4 +60,4 @@ if st.button("发送", key="predict"):
 
     st.balloons()
 
-#st.session_state
+st.session_state
