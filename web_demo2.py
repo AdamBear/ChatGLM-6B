@@ -2,9 +2,6 @@ from transformers import AutoModel, AutoTokenizer
 import streamlit as st
 from streamlit_chat import message
 
-# tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
-# #model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
-# model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().quantize(4).cuda()
 
 st.set_page_config(
     page_title="ChatGLM-6b 演示",
@@ -14,10 +11,8 @@ st.set_page_config(
 
 @st.cache_resource
 def get_model():
-    # tokenizer = AutoTokenizer.from_pretrained("d:/apps/nlp/models/chatglm-6b", trust_remote_code=True)
-    # model = AutoModel.from_pretrained("d:/apps/nlp/models/chatglm-6b", trust_remote_code=True).half().cuda()
-    tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
-    model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
+    tokenizer = AutoTokenizer.from_pretrained("/THUDM/chatglm-6b", trust_remote_code=True)
+    model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().cuda()
     model = model.eval()
     return tokenizer, model
 
@@ -57,8 +52,5 @@ if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
         # text generation
         st.session_state["state"] = predict(prompt_text, st.session_state["state"])
-        #st.success("已成功给出回答")
 
     st.balloons()
-
-#st.session_state
