@@ -42,7 +42,7 @@ def predict(input, history=None):
                 query, response = history[-1]
                 i += 1
                 key = str(len(history) + i)
-                message(response, avatar_style="bottts", key=key)
+                message(response, avatar_style="bottts")
                 #st.write(response)
 
     return history
