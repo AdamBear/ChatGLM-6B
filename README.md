@@ -9,15 +9,18 @@ ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进
 
 *Read this in [English](README_en.md).*
 
-## 硬件需求
+## 更新信息
+**[2023/03/19]** 增加流式输出接口`stream_chat`，已更新到网页版和命令行demo。修复输出中的中文标点。增加量化后的模型 [ChatGLM-6B-INT4](https://huggingface.co/THUDM/chatglm-6b-int4)
+
+## 使用方式
+
+### 硬件需求
 
 | **量化等级**    | **最低 GPU 显存** |
 | -------------- | ----------------- |
 | FP16（无量化）   | 13 GB             |
 | INT8           | 10 GB              |
 | INT4           | 6 GB               |
-
-## 使用方式
 
 ### 环境安装
 
@@ -31,6 +34,7 @@ ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进
 >>> from transformers import AutoTokenizer, AutoModel
 >>> tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True)
 >>> model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().cuda()
+>>> model = model.eval()
 >>> response, history = model.chat(tokenizer, "你好", history=[])
 >>> print(response)
 你好👋!我是人工智能助手 ChatGLM-6B,很高兴见到你,欢迎问我任何问题。
@@ -60,7 +64,7 @@ cd ChatGLM-6B
 
 #### 网页版 Demo
 
-![web-demo](resources/web-demo.png)
+![web-demo](resources/web-demo.gif)
 
 首先安装 Gradio：`pip install gradio`，然后运行仓库中的 [web_demo.py](web_demo.py)： 
 
@@ -68,7 +72,9 @@ cd ChatGLM-6B
 python web_demo.py
 ```
 
-程序会运行一个 Web Server，并输出地址。在浏览器中打开输出的地址即可使用。
+程序会运行一个 Web Server，并输出地址。在浏览器中打开输出的地址即可使用。最新版demo实现了打字机效果，速度体验大大提升。
+
+感谢[@AdamBear](https://github.com/AdamBear) 实现了基于Streamlit的网页版demo，运行方式见[#117](https://github.com/THUDM/ChatGLM-6B/pull/117).
 
 #### 命令行 Demo
 
@@ -95,20 +101,23 @@ model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).ha
 
 模型量化会带来一定的性能损失，经过测试，ChatGLM-6B 在 4-bit 量化下仍然能够进行自然流畅的生成。使用 [GPT-Q](https://arxiv.org/abs/2210.17323) 等量化方案可以进一步压缩量化精度/提升相同量化精度下的模型性能，欢迎大家提出对应的 Pull Request。
 
+**[2023/03/19]** 量化过程需要在内存中首先加载fp16格式的模型，消耗大概13GB的内存。如果你的内存不足的话，可以直接加载量化后的模型，仅需大概5.2GB的内存：
+```python
+model = AutoModel.from_pretrained("THUDM/chatglm-6b-int4", trust_remote_code=True).half().cuda()
+```
+
 ### CPU部署
-如果你没有GPU硬件的话，也可以在CPU上进行推理。使用方法如下
+如果你没有GPU硬件的话，也可以在CPU上进行推理，但是推理速度会更慢。使用方法如下（需要大概32GB内存）
 ```python
 model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).float()
 ```
-CPU上推理速度可能会比较慢。
 
-以上方法需要32G内存。如果你只有16G内存，可以尝试
+**[2023/03/19]** 如果你的内存不足，可以直接加载量化后的模型：
 ```python
-model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).bfloat16()
+model = AutoModel.from_pretrained("THUDM/chatglm-6b-int4",trust_remote_code=True).float()
 ```
-需保证空闲内存接近16G，并且推理速度会很慢。
 
-MacOS 如果报错`RuntimeError: Unknown platform: darwin`的话请参考这个[Issue](https://github.com/THUDM/ChatGLM-6B/issues/6#issuecomment-1470060041).
+如果遇到了报错 `Could not find module 'nvcuda.dll'` 或者 `RuntimeError: Unknown platform: darwin` (MacOS) 的话请参考这个[Issue](https://github.com/THUDM/ChatGLM-6B/issues/6#issuecomment-1470060041).
 
 ## ChatGLM-6B示例
 

@@ -11,8 +11,8 @@ st.set_page_config(
 
 @st.cache_resource
 def get_model():
-    tokenizer = AutoTokenizer.from_pretrained("/THUDM/chatglm-6b", trust_remote_code=True)
-    model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().cuda()
+    tokenizer = AutoTokenizer.from_pretrained("/data/chatglm-6b", trust_remote_code=True)
+    model = AutoModel.from_pretrained("/data/chatglm-6b", trust_remote_code=True).half().cuda()
     model = model.eval()
     return tokenizer, model
 
@@ -25,17 +25,11 @@ def predict(input, history=None):
     tokenizer, model = get_model()
     if history is None:
         history = []
-    response, history = model.chat(tokenizer, input, history)
 
-    #updates = []
-    for i, (query, response) in enumerate(history):
-        #updates.append("用户：" + query)
-        message(query, avatar_style="big-smile", key=str(i) + "_user")
-        #updates.append("ChatGLM-6B：" + response)
-        message(response, avatar_style="bottts", key=str(i))
-
-    # if len(updates) < MAX_BOXES:
-    #     updates = updates + [""] * (MAX_BOXES - len(updates))
+    for response, history in model.stream_chat(tokenizer, input, history):
+        for i, (query, response) in enumerate(history):
+            message(query, avatar_style="big-smile", key=str(i) + "_user")
+            message(response, avatar_style="bottts", key=str(i))
 
     return history
 
