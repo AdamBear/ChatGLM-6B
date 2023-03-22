@@ -39,10 +39,12 @@ def predict(input, history=None):
             query, response = history[-1]
             i += 1
             key = str(len(history) + i)
-            if c_r:
-                c_r.empty()
-                #message(response, avatar_style="bottts", key=key)
-            c_r = st.write(response)
+            # if c_r:
+            #     c_r.empty()
+            #     #message(response, avatar_style="bottts", key=key)
+            # c_r = st.write(response)
+            with st.empty():
+                st.write(response)
 
     return history
 
