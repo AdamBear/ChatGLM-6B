@@ -33,14 +33,14 @@ def predict(input, history=None):
                 message(query, avatar_style="big-smile", key=str(i) + "_user")
                 message(response, avatar_style="bottts", key=str(i))
 
-        i = 0
-        for response, history in model.stream_chat(tokenizer, input, history):
-            query, response = history[-1]
-            i += 1
-            key = str(len(history) + i)
-            with st.empty():
-                message(response, avatar_style="bottts", key=key)
-                #st.write(response)
+        # i = 0
+        # for response, history in model.stream_chat(tokenizer, input, history):
+        #     query, response = history[-1]
+        #     i += 1
+        #     key = str(len(history) + i)
+        #     with st.empty():
+        #         message(response, avatar_style="bottts", key=key)
+        #         #st.write(response)
 
     return history
 
