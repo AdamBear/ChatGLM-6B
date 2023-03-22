@@ -28,13 +28,12 @@ def predict(input, history=None):
         history = []
 
     with container:
-        if len(history) > 1:
+        if len(history) > 0:
             for i, (query, response) in enumerate(history):
                 message(query, avatar_style="big-smile", key=str(i) + "_user")
                 message(response, avatar_style="bottts", key=str(i))
 
         i = 0
-        c_r = None
         message(input, avatar_style="big-smile", key=str(i) + "_user")
         st.write("AI正在回复:")
         with st.empty():
