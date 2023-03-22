@@ -43,10 +43,11 @@ def predict(input, history=None):
             #     c_r.empty()
             #     #message(response, avatar_style="bottts", key=key)
             # c_r = st.write(response)
-            with st.empty():
+            with st.container():
                 st.write(response)
 
     return history
+
 
 container = st.container()
 
@@ -58,7 +59,6 @@ prompt_text = st.text_area(label="用户命令输入",
 
 if 'state' not in st.session_state:
     st.session_state['state'] = []
-    #container = st.empty()
 
 if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
@@ -66,4 +66,3 @@ if st.button("发送", key="predict"):
         st.session_state["state"] = predict(prompt_text, st.session_state["state"])
 
     st.session_state["state"]
-    #st.balloons()
