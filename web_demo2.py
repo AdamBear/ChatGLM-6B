@@ -38,7 +38,7 @@ def predict(input, history=None):
         query, response = history[-1]
         i += 1
         key = str(len(history) + i)
-        with container.empty():
+        with container:
             #st.write(query, avatar_style="big-smile", key=key + "_user")
             st.write(response)
 
