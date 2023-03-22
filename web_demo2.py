@@ -26,10 +26,19 @@ def predict(input, history=None):
     if history is None:
         history = []
 
+    for i, (query, response) in enumerate(history):
+        message(query, avatar_style="big-smile", key=str(i) + "_user")
+        message(response, avatar_style="bottts", key=str(i))
+
+    placeholder = st.empty()
+    placeholder.empty()
     for response, history in model.stream_chat(tokenizer, input, history):
-        for i, (query, response) in enumerate(history):
-            message(query, avatar_style="big-smile", key=str(i) + "_user")
-            message(response, avatar_style="bottts", key=str(i))
+        query, response = history[-1]
+
+        # Replace the chart with several elements:
+        with placeholder.container():
+            message(query, avatar_style="big-smile")
+            message(response, avatar_style="bottts")
 
     return history
 
