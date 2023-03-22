@@ -61,4 +61,5 @@ if st.button("发送", key="predict"):
         # text generation
         st.session_state["state"] = predict(prompt_text, st.session_state["state"])
 
-    st.balloons()
+    st.session_state["state"]
+    #st.balloons()
