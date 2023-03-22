@@ -45,7 +45,7 @@ def predict(input, history=None):
     return history
 
 
-container = st.empty
+container = st.empty()
 
 # create a prompt text for the text generation
 prompt_text = st.text_area(label="用户命令输入",
