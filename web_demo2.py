@@ -39,8 +39,8 @@ def predict(input, history=None):
             i += 1
             key = str(len(history) + i)
             with st.empty():
-                message(response, avatar_style="bottts", key=key)
-                #st.write(response)
+                #message(response, avatar_style="bottts", key=key)
+                st.write(response)
 
     return history
 
