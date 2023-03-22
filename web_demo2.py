@@ -21,7 +21,6 @@ MAX_TURNS = 20
 MAX_BOXES = MAX_TURNS * 2
 
 
-
 def predict(input, history=None):
     tokenizer, model = get_model()
     if history is None:
@@ -33,7 +32,6 @@ def predict(input, history=None):
                 message(query, avatar_style="big-smile", key=str(i) + "_user")
                 message(response, avatar_style="bottts", key=str(i))
 
-        i = 0
         message(input, avatar_style="big-smile", key=str(len(history)) + "_user")
         st.write("AI正在回复:")
         with st.empty():
