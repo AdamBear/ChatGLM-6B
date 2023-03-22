@@ -39,9 +39,6 @@ def predict(input, history=None):
         with st.empty():
             for response, history in model.stream_chat(tokenizer, input, history):
                 query, response = history[-1]
-                i += 1
-                key = str(len(history) + i)
-                #message(response, avatar_style="bottts")
                 st.write(response)
 
     return history
