@@ -29,21 +29,22 @@ def predict(input, history=None):
 
     if len(history) > 1:
         for i, (query, response) in enumerate(history[:-1]):
-            message(query, avatar_style="big-smile", key=str(i) + "_user")
-            message(response, avatar_style="bottts", key=str(i))
+            container.message(query, avatar_style="big-smile", key=str(i) + "_user")
+            container.message(response, avatar_style="bottts", key=str(i))
 
-    c_q = None
     i = 0
     for response, history in model.stream_chat(tokenizer, input, history):
         query, response = history[-1]
         i += 1
         key = str(len(history) + i)
-        with st.empty():
-            c_q = message(query, avatar_style="big-smile", key=key + "_user")
-            c_r = message(response, avatar_style="bottts", key=key)
+        with container.empty():
+            message(query, avatar_style="big-smile", key=key + "_user")
+            message(response, avatar_style="bottts", key=key)
 
     return history
 
+
+container = st.empty
 
 # create a prompt text for the text generation
 prompt_text = st.text_area(label="用户命令输入",
@@ -51,7 +52,7 @@ prompt_text = st.text_area(label="用户命令输入",
             placeholder="请在这儿输入您的命令")
 
 
-placeholder = st.empty()
+
 
 if 'state' not in st.session_state:
     st.session_state['state'] = []
