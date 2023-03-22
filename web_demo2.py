@@ -34,7 +34,7 @@ def predict(input, history=None):
                 message(response, avatar_style="bottts", key=str(i))
 
         i = 0
-        message(input, avatar_style="big-smile", key=str(i) + "_user")
+        message(input, avatar_style="big-smile", key=str(len(history)) + "_user")
         st.write("AI正在回复:")
         with st.empty():
             for response, history in model.stream_chat(tokenizer, input, history):
