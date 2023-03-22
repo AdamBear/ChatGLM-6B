@@ -35,6 +35,7 @@ def predict(input, history=None):
 
         i = 0
         c_r = None
+        st.write("AI回复中:")
         with st.empty():
             for response, history in model.stream_chat(tokenizer, input, history):
                 query, response = history[-1]
