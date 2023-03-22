@@ -35,7 +35,7 @@ def predict(input, history=None):
     c_q = None
     for response, history in model.stream_chat(tokenizer, input, history):
         query, response = history[-1]
-        key = str(len(history)-1)
+        key = str(len(history))
         if c_q:
             c_q.empty()
             c_r.empty()
