@@ -21,6 +21,7 @@ MAX_TURNS = 20
 MAX_BOXES = MAX_TURNS * 2
 
 
+
 def predict(input, history=None):
     tokenizer, model = get_model()
     if history is None:
@@ -31,7 +32,7 @@ def predict(input, history=None):
             message(query, avatar_style="big-smile", key=str(i) + "_user")
             message(response, avatar_style="bottts", key=str(i))
 
-    placeholder = st.empty()
+
     for response, history in model.stream_chat(tokenizer, input, history):
         query, response = history[-1]
         placeholder.empty()
@@ -47,6 +48,9 @@ def predict(input, history=None):
 prompt_text = st.text_area(label="用户命令输入",
             height = 100,
             placeholder="请在这儿输入您的命令")
+
+
+placeholder = st.empty()
 
 if 'state' not in st.session_state:
     st.session_state['state'] = []
