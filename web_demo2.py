@@ -45,8 +45,6 @@ def predict(input, history=None):
     return history
 
 
-container = st.empty()
-
 # create a prompt text for the text generation
 prompt_text = st.text_area(label="用户命令输入",
             height = 100,
@@ -55,6 +53,7 @@ prompt_text = st.text_area(label="用户命令输入",
 
 if 'state' not in st.session_state:
     st.session_state['state'] = []
+    container = st.empty()
 
 if st.button("发送", key="predict"):
     with st.spinner("AI正在思考，请稍等........"):
