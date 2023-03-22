@@ -36,8 +36,8 @@ def predict(input, history=None):
         placeholder.empty()
         # Replace the chart with several elements:
         with placeholder.container():
-            message(query, avatar_style="big-smile", key=str(i) + "_user")
-            message(response, avatar_style="bottts", key=str(i))
+            message(query, avatar_style="big-smile", key=str(len(history)) + "_user")
+            message(response, avatar_style="bottts", key=str(len(history)))
 
     return history
 
