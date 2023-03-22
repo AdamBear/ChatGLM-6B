@@ -29,22 +29,18 @@ def predict(input, history=None):
 
     with container:
         if len(history) > 1:
-            for i, (query, response) in enumerate(history[:-1]):
+            for i, (query, response) in enumerate(history):
                 message(query, avatar_style="big-smile", key=str(i) + "_user")
                 message(response, avatar_style="bottts", key=str(i))
 
         i = 0
         c_r = None
-        st.write("AI回复中:")
+        st.write("您的指令:" + input)
+        st.write("AI回复:")
         with st.empty():
             for response, history in model.stream_chat(tokenizer, input, history):
                 query, response = history[-1]
                 i += 1
-                key = str(len(history) + i)
-                # if c_r:
-                #     c_r.empty()
-                #     #message(response, avatar_style="bottts", key=key)
-                # c_r = st.write(response)
                 st.write(response)
 
     return history
