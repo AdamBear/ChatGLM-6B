@@ -35,13 +35,15 @@ def predict(input, history=None):
 
         i = 0
         c_r = None
-        st.write("您的指令:" + input)
+        message(input, avatar_style="big-smile", key=str(i) + "_user")
         st.write("AI回复:")
         with st.empty():
             for response, history in model.stream_chat(tokenizer, input, history):
                 query, response = history[-1]
                 i += 1
-                st.write(response)
+                key = str(len(history) + i)
+                message(response, avatar_style="bottts", key=key)
+                #st.write(response)
 
     return history
 
