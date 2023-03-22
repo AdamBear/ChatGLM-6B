@@ -32,14 +32,13 @@ def predict(input, history=None):
             message(query, avatar_style="big-smile", key=str(i) + "_user")
             message(response, avatar_style="bottts", key=str(i))
 
-
     for response, history in model.stream_chat(tokenizer, input, history):
         query, response = history[-1]
-        placeholder.empty()
-        # Replace the chart with several elements:
-        with placeholder.container():
-            message(query, avatar_style="big-smile", key=str(len(history)) + "_user")
-            message(response, avatar_style="bottts", key=str(len(history)))
+        key = str(len(history)-1)
+        if key in st.session_state:
+            del st.session_state[key]
+        message(query, avatar_style="big-smile", key=key + "_user")
+        message(response, avatar_style="bottts", key=key)
 
     return history
 
